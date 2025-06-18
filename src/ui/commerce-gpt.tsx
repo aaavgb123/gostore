@@ -79,7 +79,7 @@ export function CommerceGPT() {
 										<span className="bg-linear-to-r from-orange-500 via-red-500 to-red-600 text-transparent bg-clip-text">
 											Commerce GPT
 										</span>{" "}
-										in Your Next Store
+										in Go Store
 									</h3>
 									<div className="flex flex-wrap justify-center gap-2 w-full">
 										<Button
