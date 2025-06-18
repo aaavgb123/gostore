@@ -2,7 +2,6 @@ import { getTranslations } from "@/i18n/server";
 import StoreConfig from "@/store.config";
 import { Newsletter } from "@/ui/footer/newsletter.client";
 import { YnsLink } from "@/ui/yns-link";
-import type { SVGAttributes } from "react";
 
 const sections = [
 	{
