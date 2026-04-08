@@ -50,11 +50,11 @@ export async function POST(request: Request) {
 						},
 					});
 
-					revalidateTag(`product-${product.id}`);
+					revalidateTag(`product-${product.id}`, { expire: 0 });
 				}
 			}
 
-			revalidateTag(`cart-${event.data.object.id}`);
+			revalidateTag(`cart-${event.data.object.id}`, { expire: 0 });
 
 			break;
 
