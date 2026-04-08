@@ -31,6 +31,9 @@ const chunks = mapProducts(data).flatMap((product): ChunkReqPayload | ChunkReqPa
 	if (!product.default_price.unit_amount) {
 		return [];
 	}
+	if (!product.metadata.slug) {
+		return [];
+	}
 	const link = product.metadata.variant
 		? `/product/${product.metadata.slug}?variant=${product.metadata.variant}`
 		: `/product/${product.metadata.slug}`;

@@ -1,16 +1,12 @@
 "use client";
 
-import { formatMoney } from "@/lib/utils";
+import { formatMoney, isProductVisible } from "@/lib/utils";
 import { YnsLink } from "@/ui/yns-link";
 import type * as Commerce from "commerce-kit";
 import Image from "next/image";
 
 export const ProductList = ({ products }: { products: Commerce.MappedProduct[] }) => {
-	// 通过在 hiddenSlugs 数组中添加需要隐藏的商品 slug，可以实现前端隐藏指定商品。
-	const hiddenSlugs = ['goshequ', 'hahha'];
-	const visibleProducts = products.filter(
-		(product) => !hiddenSlugs.includes(product.metadata.slug)
-	);
+	const visibleProducts = products.filter(isProductVisible);
 
 	return (
 		<>

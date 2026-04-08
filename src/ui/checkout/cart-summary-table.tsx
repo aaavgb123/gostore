@@ -78,7 +78,7 @@ export const CartSummaryTable = ({ cart, locale }: { cart: Commerce.Cart; locale
 								<TableCell className="font-medium">
 									<YnsLink
 										className="transition-colors hover:text-muted-foreground"
-										href={`/product/${line.product.metadata.slug}`}
+										href={line.product.metadata.slug ? `/product/${line.product.metadata.slug}` : "#"}
 									>
 										{formatProductName(line.product.name, line.product.metadata.variant)}
 									</YnsLink>

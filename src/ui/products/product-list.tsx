@@ -1,5 +1,5 @@
 import { getLocale } from "@/i18n/server";
-import { formatMoney } from "@/lib/utils";
+import { formatMoney, isProductVisible } from "@/lib/utils";
 import { JsonLd, mappedProductsToJsonLd } from "@/ui/json-ld";
 import { YnsLink } from "@/ui/yns-link";
 import type * as Commerce from "commerce-kit";
@@ -9,22 +9,12 @@ import "@/lib/types";
 export const ProductList = async ({ products }: { products: Commerce.MappedProduct[] }) => {
 	const locale = await getLocale();
 
-	console.log('所有商品slug:', products.map(p => p.metadata.slug));
-
-	// 通过在 hiddenSlugs 数组中添加需要隐藏的商品 slug，可以实现前端隐藏指定商品。
-	const hiddenSlugs = ['goshequ', 'hahha', '哈哈哈'];
-	const visibleProducts = products.filter(
-		(product) => !hiddenSlugs.includes(product.metadata.slug)
-	);
-
-	// Remove debug logging
-	console.log('完整商品对象:', visibleProducts[0]);
+	const visibleProducts = products.filter(isProductVisible);
 
 	return (
 		<>
 			<ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 				{visibleProducts.map((product, idx) => {
-					console.log('商品元数据:', product.metadata);
 					return (
 						<li key={product.id} className="group">
 							<YnsLink href={`/product/${product.metadata.slug}`}>
@@ -63,17 +53,10 @@ export const ProductList = async ({ products }: { products: Commerce.MappedProdu
 					);
 				})}
 			</ul>
-			<JsonLd jsonLd={mappedProductsToJsonLd(products)} />
+			<JsonLd jsonLd={mappedProductsToJsonLd(visibleProducts)} />
 		</>
 	);
 };
-
-export interface ProductMetadata {
-	slug: string;
-	stock: number;
-	// ... 其它字段
-	hidden?: string;
-}
 
 declare module "commerce-kit" {
 	interface ProductMetadata {
