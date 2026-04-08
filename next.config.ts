@@ -5,9 +5,7 @@ const withMDX = MDX();
 
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
+	cacheComponents: true,
 	output: process.env.DOCKER ? "standalone" : undefined,
 	logging: {
 		fetches: {
@@ -26,9 +24,7 @@ const nextConfig: NextConfig = {
 	experimental: {
 		esmExternals: true,
 		scrollRestoration: true,
-		ppr: true,
 		cpus: 1,
-		reactCompiler: true,
 		mdxRs: true,
 		inlineCss: true,
 	},
