@@ -1,6 +1,20 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export const isProductVisible = (product: {
+	id: string;
+	metadata: { slug?: string; hidden?: string | boolean };
+}): boolean => {
+	if (!product.metadata.slug) {
+		console.warn(`[isProductVisible] Skipping product id=${product.id}: missing slug`);
+		return false;
+	}
+	if (product.metadata.hidden === "true" || product.metadata.hidden === true) {
+		return false;
+	}
+	return true;
+};
+
 export const isDefined = <T>(value: T | null | undefined): value is T =>
 	value !== null && value !== undefined;
 
