@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 type ProductBrowseParams = Parameters<typeof Commerce.productBrowse>[0];
 type StripeConnectionError = {
 	type: "StripeConnectionError";
+	message?: string;
 };
 
 const isStripeConnectionError = (error: unknown): error is StripeConnectionError => {
