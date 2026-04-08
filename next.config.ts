@@ -5,7 +5,6 @@ const withMDX = MDX();
 
 const nextConfig: NextConfig = {
 	reactStrictMode: true,
-	cacheComponents: true,
 	output: process.env.DOCKER ? "standalone" : undefined,
 	logging: {
 		fetches: {
@@ -21,7 +20,6 @@ const nextConfig: NextConfig = {
 		formats: ["image/avif", "image/webp"],
 	},
 	transpilePackages: ["next-mdx-remote", "commerce-kit"],
-	cacheComponents: true,
 	reactCompiler: true,
 	experimental: {
 		esmExternals: true,
