@@ -1,7 +1,7 @@
 import { publicUrl } from "@/env.mjs";
 import { getTranslations } from "@/i18n/server";
+import { safeProductBrowse } from "@/lib/commerce";
 import { ProductList } from "@/ui/products/product-list";
-import * as Commerce from "commerce-kit";
 import type { Metadata } from "next/types";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -13,7 +13,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default async function AllProductsPage() {
-	const products = await Commerce.productBrowse({ first: 100 });
+	const products = await safeProductBrowse({ first: 100 });
 	const t = await getTranslations("/products.page");
 
 	return (

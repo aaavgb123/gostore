@@ -1,8 +1,8 @@
 import { publicUrl } from "@/env.mjs";
 import { getTranslations } from "@/i18n/server";
+import { safeProductBrowse } from "@/lib/commerce";
 import { deslugify } from "@/lib/utils";
 import { ProductList } from "@/ui/products/product-list";
-import * as Commerce from "commerce-kit";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next/types";
 
@@ -10,7 +10,7 @@ export const generateMetadata = async (props: {
 	params: Promise<{ slug: string }>;
 }): Promise<Metadata> => {
 	const params = await props.params;
-	const products = await Commerce.productBrowse({
+	const products = await safeProductBrowse({
 		first: 100,
 		filter: { category: params.slug },
 	});
@@ -31,7 +31,7 @@ export default async function CategoryPage(props: {
 	params: Promise<{ slug: string }>;
 }) {
 	const params = await props.params;
-	const products = await Commerce.productBrowse({
+	const products = await safeProductBrowse({
 		first: 100,
 		filter: { category: params.slug },
 	});
