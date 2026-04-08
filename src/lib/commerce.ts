@@ -25,11 +25,13 @@ export const safeProductBrowse = async (params: ProductBrowseParams) => {
 			return [];
 		}
 		if (isStripeConnectionError(error)) {
+			const message =
+				typeof error === "object" && error !== null && "message" in error ? String(error.message) : undefined;
 			console.error("[safeProductBrowse] Stripe connection error while browsing products", {
 				params,
 				error: {
 					type: error.type,
-					message: error instanceof Error ? error.message : undefined,
+					message,
 				},
 			});
 			return [];
