@@ -1,13 +1,13 @@
 import { publicUrl } from "@/env.mjs";
+import { safeProductBrowse } from "@/lib/commerce";
 import StoreConfig from "@/store.config";
-import * as Commerce from "commerce-kit";
 import type { MetadataRoute } from "next";
 
 type Item = MetadataRoute.Sitemap[number];
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const products = await Commerce.productBrowse({ first: 100 }).catch(() => []);
+	const products = await safeProductBrowse({ first: 100 });
 	const productUrls = products
-		.filter((product) => !!product.metadata.slug)
+		.filter((product) => product.metadata.slug != null)
 		.map(
 			(product) =>
 				({
